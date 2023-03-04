@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <link rel="stylesheet" href="stylesheet.css">
+        <style>
+        </style>
+    </head>
+    <body>
+        <nav>
+            <div id="login">
+                <a href="#"><h2>LOGIN</h2></a>
+                <button><a href="signup.html">SIGN UP</a></button>
+            </div>
+            <div id="logo"><img src="logo 2.png" width="100px"> 
+            </div>
+            <h1 class="navtext">  YOUR FINANCIAL BUDDY </h1>
+            <ul>
+                <a href="index.html"><li>HOME</li></a>
+                <a href="#"><li>
+                    <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">CALCULATORS ▽</button>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a href="saveCalc.html">Savings Calculator</a>
+                      <a href="financeCalc.html">Finance Calculator</a>
+                      <a href="mortCalc.html">Mortgage Calculator</a>
+                      <a href="itemCalc.html">Items Calculator</a>
+                    </div>
+                  </div>
+                </li></a>
+                <a href="#"><li>MY ACCOUNT</li></a>
+                <a href="#"><li>ABOUT US</li></a>
+          
+            </ul>
+        </nav>
+        <div id="section1">
+            <h3>WELCOME TO <span id="red">BUD</span><span id="blue">BUD.</span></h3>
+            <h4>Your personal financial buddy.</h4>
+            <p> Can’t be bothered to calculate all of your financial troubles yourself? Allow BudBud to handle that for you. With our user-friendly website, you can sit back and relax as it calculates your available expenditures based on your salary. BudBud not only calculates your available expenditures, it also assists you on determining your capability for finances, mortgages, and for materialistic needs.</p>
+            <div id="calculatorLinks">
+                <div id="savingsBox">
+                    <h4>SAVINGS CALCULATOR</h4>
+                    <button id="calculateNow"><a href="saveCalc.html">CALCULATE</a></button>
+                </div>
+                <div id="financeBox">
+                    <h4>FINANCE CALCULATOR</h4>
+                    <button id="calculateNow"><a href="financeCalc.html">CALCULATE</a></button>
+                </div>
+                <div id="mortgageBox">
+                    <h4>MORTGAGE CALCULATOR</h4>
+                    <button id="calculateNow"><a href="mortCalc.html">CALCULATE</a></button>
+                </div>
+                <div id="itemsBox">
+                    <h4>ITEM CALCULATOR</h4>
+                    <button id="calculateNow"><a href="itemCalc.html">CALCULATE</a></button>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="scripts\dropdownmenu.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,190 @@
+body {
+    height: 200vh;
+    font-family: 'Bahnschrift Light';
+    font-size: 10px;
+    color: black;
+}
+
+nav {
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    background-color: white;
+}
+
+#logo {
+    float: left;
+}
+
+h1 {
+    color: black;
+    font-size: 10px;
+    float: left;
+    margin-right: 30%;
+}
+
+.navtext {
+    margin-top: 40px;
+}
+
+ul {
+    margin-top:25px;
+}
+
+ul li {
+    float: left;
+    font-size: 15px;
+    list-style-type: none;
+    padding: 10px;
+}
+
+#login {
+    margin-top: 25px;
+    float: right;
+    position: relative;
+    left: -150px;
+}
+
+h2 {
+    float: left;
+    margin-right: 10px;
+}
+
+
+#section1 {
+    width: 100%;
+    height: 180vh;
+    padding-top: 150px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+#section1 h4 {
+    font-size: 20px;
+}
+
+#section1 p {
+    font-size: 15px; 
+}
+
+h3 {
+    font-size: 70px;
+    margin-bottom: -30px;
+}
+
+#calculatorLinks {
+    width: 90%;
+    height: 60%;
+    border: black solid 1px;
+}
+
+#savingsBox {
+    width: 44%;
+    height: 40%;
+    border: black solid 1px;
+    margin: 30px;
+    float: left;
+}
+
+#financeBox {
+    width: 44%;
+    height: 40%;
+    border: black solid 1px;
+    margin: 30px;
+    float: right;
+}
+
+#mortgageBox {
+    width: 44%;
+    height: 40%;
+    border: black solid 1px;
+    margin: 30px;
+    float: left;
+}
+
+#itemsBox {
+    width: 44%;
+    height: 40%;
+    border: black solid 1px;
+    margin: 30px;
+    float: right;
+}
+
+#red {
+    color: red;
+}
+
+#blue {
+    color: rgb(0, 148, 255);
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: gray;
+}
+
+#login button:hover {
+    background-color: gray;
+}
+
+button a:hover {
+    color: white;
+}
+
+p {
+    width: 60%;
+}
+
+#calculateNow {
+    background-color: white;
+    padding: 5px;
+}
+
+.dropbtn {
+    background-color: white;
+    border: none;
+    font-size: 15px;
+    margin-top: -3px;
+}
+  
+.dropbtn:hover, .dropbtn:focus {
+    color: gray;
+}
+  
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+  
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: #f1f1f1;
+min-width: 160px;
+overflow: auto;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdown-content a {
+color: black;
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+#login button {
+    float: left;
+    padding: 6px;
+    margin-top: 5px;
+    background-color: white;
+    
+}

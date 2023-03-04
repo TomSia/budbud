@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="stylesheet.css">
+        <style>
+            #saveContainer {
+                width: 90%;
+                height: 100vh;
+                padding-top: 130px;
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            h4 {
+                padding-top: 50px;
+                font-size: 20px;
+            }
+
+            h5 {
+                font-size: 10px;
+            }
+
+            #hourly {
+                border: black solid 2px;
+                width: 50%;
+                height: 300px;
+                float: left;
+                
+            }
+
+            #weekly {
+                float: right;
+                width: 40%;
+                height: 800px;
+                border: black dotted 2px;
+                position: relative;
+                top: 50px;
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            h6 {
+                font-size: 20px;
+                text-align: center;
+            }
+
+            h7 {
+                font-size: 15px;
+                width: 80%;
+                line-height: 30px;
+            }
+
+            #earnings {
+                width: 100%;
+                height: 400px;
+            }
+
+            #query {
+                width: 40%;
+                height: 1000px;
+                float: left;
+            }
+
+            #piechart {
+                width: 300px;
+                height: 300px;
+                border: 2px black solid;
+                border-radius: 50%;
+                background: conic-gradient(red 50.00%,green 20.00%,blue 20.00%);
+            }
+
+            #weekly button {
+                margin-top: 10px;
+                background-color: white;
+                padding: 5px;
+            }
+
+            #weekly button:hover {
+                cursor: pointer;
+                background-color: gray;
+            }
+        </style>
+    </head>
+    <body>        
+        <nav>
+            <div id="login">
+                <a href="#"><h2>LOGIN</h2></a>
+                <button><a href="signup.html">SIGN UP</a></button>
+            </div>
+            <div id="logo"><img src="logo 2.png" width="100px"> 
+            </div>
+            <h1 class="navtext">  YOUR FINANCIAL BUDDY </h1>
+            <ul>
+                <a href="index.html"><li>HOME</li></a>
+                <a href="#"><li>
+                    <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">CALCULATORS ▽</button>
+                    <div id="myDropdown" class="dropdown-content">
+                    <a href="saveCalc.html">Savings Calculator</a>
+                    <a href="financeCalc.html">Finance Calculator</a>
+                    <a href="mortCalc.html">Mortgage Calculator</a>
+                    <a href="itemCalc.html">Items Calculator</a>
+                    </div>
+                </div>
+                </li></a>
+                <a href="#"><li>MY ACCOUNT</li></a>
+                <a href="#"><li>ABOUT US</li></a>
+        
+            </ul>
+        </nav> 
+        <div id="saveContainer">
+            <h3>SAVINGS CALCULATOR</h3>
+            <div id="query">
+                <div id = earnings>
+                    <h4>1. How much do you make?</h4>
+                    <div id="hourly">
+                    <h5>Hourly earnings</h5>
+                    <input type="number" id="hr" oninput="calculateWeek()">
+                    <h5>Hours worked per week</h5>
+                    <input type="number" id="whr" oninput="calculateWeek()">
+                    <h5>Tax Percentage</h5>
+                    <input type="number" id="tax" oninput="calculateWeek()">
+                    </div>
+                    
+                </div>
+                <h4>2. How much do you spend?</h4>
+                <div id="spending">
+                    <h5>Rent per week</h5>
+                    <input type="number" id="rent" oninput="calculateWeek()">
+                    <h5>Bills</h5>
+                    <input type="number" id="bills" oninput="calculateWeek()">
+                    <h5>Food</h5>
+                    <input type="number" id="food" oninput="calculateWeek()">
+                </div>
+                <div id="testrunning">
+                    <span id="hrr"></span>
+                    <span id="whr"></span>
+                </div>
+
+            </div>
+            <div id="weekly">
+                <h6>WEEKLY BREAKDOWN</h6>
+                <h7>EARNINGS PER WEEK: $<span id="earned"></span></h7><br>
+                <h7>SPENDING PER WEEK: $<span id="spent"></span></h7><br>
+                <h7>WEEKLY AMOUNT OF MONEY LEFT: $<span id="sum"></span></h7>
+                <div id="piechart">
+                    
+                </div>
+                <h4>3. How much do you want to save?</h4>
+                <h5>Percentage you want to save?</h5>
+                <input type="number" id="save" oninput="calculateWeek()"><br>
+                <h7>AMOUNT SAVING: $<span id="amountsave"></span></h7><br>
+                <h7>AMOUNT LEFT TO SPEND: $<span id="leftover"></span></h7><br>
+
+                <button onclick="saving()">SAVE</button>
+            </div>
+           
+            
+        </div>
+        <script>
+            const hour = document.getElementById("hr")
+            const work = document.getElementById("whr")
+            const tax = document.getElementById("tax")
+            const rent = document.getElementById("rent")
+            const bills = document.getElementById("bills")
+            const food = document.getElementById("food")
+            const save = document.getElementById("save")
+
+            function calculateWeek() {
+                let hr = hour.value;
+                let wk = work.value;
+                let tx = tax.value;
+                let rt = Number(rent.value)
+                let bl = Number(bills.value)
+                let fd = Number(food.value)
+                let en = ((hr*wk)-((hr*wk*tx)/100));
+                let sp = rt + bl+ fd;
+                let sv = save.value;
+                let sum = (en-sp);
+                let svs = ((sum*sv)/100).toFixed(2);
+                let svm = (sum-svs).toFixed(2);
+                document.getElementById("earned").innerHTML = (en);
+                document.getElementById("spent").innerHTML = (sp);
+                document.getElementById("sum").innerHTML = (sum);
+                document.getElementById("amountsave").innerHTML = (svs);
+                document.getElementById("leftover").innerHTML = (svm);
+                window.localStorage.setItem("savings",svs);
+                window.localStorage.setItem("spending",svm);
+            }
+
+            function saving() {
+                let svm = window.localStorage.getItem("spending");
+                let svs = window.localStorage.getItem("savings");
+                alert(svm + svs);
+            }
+
+        </script>
+    </body>
+    
+</html>
