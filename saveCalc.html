@@ -21,7 +21,6 @@
             }
 
             #hourly {
-                border: black solid 2px;
                 width: 50%;
                 height: 300px;
                 float: left;
@@ -148,24 +147,24 @@
                     <h5>Hourly earnings</h5>
                     <input type="number" id="hr" oninput="calculateWeek()">
                     <h5>Hours worked per week</h5>
-                    <input type="number" id="whr" oninput="calculateWeek()"><br>
-                    <label id="beforetax">Before Or After Tax?</label>
+                    <input type="number" id="whr" oninput="calculateWeek(), changeBGColor()"><br>
+                    <label id="beforetax">After Tax?</label>
                     <input id="myCheck" type="checkbox" onclick="tick()">
                     <h5 id="taxx">Tax Percentage</h5>
-                    <input type="number" id="tax" oninput="calculateWeek()">
+                    <input type="number" id="tax" oninput="calculateWeek(), changeBGColor()">
                     <h5>Other Deductions etc. KiwiSaver</h5>
-                    <input type="number" id="deductions" oninput="calculateWeek()">
+                    <input type="number" id="deductions" oninput="calculateWeek(), changeBGColor()">
                     </div>
                     
                 </div>
                 <h4>2. How much do you spend?</h4>
                 <div id="spending">
                     <h5>Rent per week</h5>
-                    <input type="number" id="rent" oninput="calculateWeek()">
+                    <input type="number" id="rent" oninput="calculateWeek(), changeBGColor()">
                     <h5>Bills</h5>
-                    <input type="number" id="bills" oninput="calculateWeek()">
+                    <input type="number" id="bills" oninput="calculateWeek(), changeBGColor()">
                     <h5>Food</h5>
-                    <input type="number" id="food" oninput="calculateWeek()">
+                    <input type="number" id="food" oninput="calculateWeek(), changeBGColor()">
                 </div>
                 <div id="testrunning">
                     <span id="hrr"></span>
@@ -180,9 +179,10 @@
                 <h7>WEEKLY AMOUNT OF MONEY LEFT: $<span id="sum"></span></h7>
                 <div class="piechart" id="pie">
                     <ul>
-                        <li><div id="block" style="background: orange"></div><h7>Saving<span id="saveper"></span></h7></li>
-                        <li><div id="block" style="background: red"></div><h7>Spending<span id="spendper"></span></h7></li>
-                        <li><div id="block" style="background: yellow"></div><h7>Essentials<span id="esseper"></span></h7></li>
+                        <li><div id="block" style="background: orange"></div><h7>Saving<span id="saveper"> </span></h7></li>
+                        <li><div id="block" style="background: red"></div><h7>Spending<span id="spendper"> </span></h7></li>
+                        <li><div id="block" style="background: yellow"></div><h7>Essentials<span id="esseper"> </span></h7></li>
+
                     </ul>
                 </div>
                 <h4>3. How much do you want to save?</h4>
@@ -222,6 +222,11 @@
                 let svm = (sum-svs).toFixed(2);
                 let svsper = Math.round((svs/en)*360);
                 let svmper = Math.round((svm/en)*360);
+
+                let saveper = Math.round((svs/en)*100);
+                let spendper = Math.round((svm/en)*100);
+                let esseper = Math.round(100-(saveper + spendper));
+
                 document.getElementById("earned").innerHTML = (en);
                 document.getElementById("spent").innerHTML = (sp);
                 document.getElementById("sum").innerHTML = (sum);
@@ -231,6 +236,11 @@
                 window.localStorage.setItem("spending",svm);
                 window.localStorage.setItem("savingsper",svsper);
                 window.localStorage.setItem("spendingper",svmper);
+
+                document.getElementById("saveper").innerHTML = " "+(saveper)+"%";
+                document.getElementById("spendper").innerHTML = " "+(spendper)+"%";
+                document.getElementById("esseper").innerHTML = " "+(esseper)+"%";
+
             }
 
             function saving() {
