@@ -182,6 +182,7 @@
                         <li><div id="block" style="background: orange"></div><h7>Saving<span id="saveper"> </span></h7></li>
                         <li><div id="block" style="background: red"></div><h7>Spending<span id="spendper"> </span></h7></li>
                         <li><div id="block" style="background: yellow"></div><h7>Essentials<span id="esseper"> </span></h7></li>
+
                     </ul>
                 </div>
                 <h4>3. How much do you want to save?</h4>
@@ -221,9 +222,11 @@
                 let svm = (sum-svs).toFixed(2);
                 let svsper = Math.round((svs/en)*360);
                 let svmper = Math.round((svm/en)*360);
+
                 let saveper = Math.round((svs/en)*100);
                 let spendper = Math.round((svm/en)*100);
                 let esseper = Math.round(100-(saveper + spendper));
+
                 document.getElementById("earned").innerHTML = (en);
                 document.getElementById("spent").innerHTML = (sp);
                 document.getElementById("sum").innerHTML = (sum);
@@ -233,9 +236,11 @@
                 window.localStorage.setItem("spending",svm);
                 window.localStorage.setItem("savingsper",svsper);
                 window.localStorage.setItem("spendingper",svmper);
+
                 document.getElementById("saveper").innerHTML = " "+(saveper)+"%";
                 document.getElementById("spendper").innerHTML = " "+(spendper)+"%";
                 document.getElementById("esseper").innerHTML = " "+(esseper)+"%";
+
             }
 
             function saving() {
