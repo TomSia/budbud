@@ -61,12 +61,12 @@
                 float: left;
             }
 
-            #piechart {
+            .piechart {
                 width: 300px;
                 height: 300px;
                 border: 2px black solid;
                 border-radius: 50%;
-                background: conic-gradient(red 50.00%,green 20.00%,blue 20.00%);
+                background: conic-gradient(red 360deg, orange 360deg 360deg, yellow 360deg);
             }
 
             #weekly button {
@@ -78,6 +78,37 @@
             #weekly button:hover {
                 cursor: pointer;
                 background-color: gray;
+            }
+
+            #beforetax {
+                padding: 10px;
+            }
+
+            #myCheck {
+                margin-top: 10px;
+            }
+            
+            #tax{
+                display: none;
+            }
+
+            #taxx {
+                display: none;
+            }
+
+            #pie ul {
+                position: relative;
+                left: 300px;
+            }
+
+            #pie ul li {
+                float: none;
+            }
+
+            #block {
+                width: 10px;
+                height: 10px;
+                float: left;
             }
         </style>
     </head>
@@ -117,9 +148,13 @@
                     <h5>Hourly earnings</h5>
                     <input type="number" id="hr" oninput="calculateWeek()">
                     <h5>Hours worked per week</h5>
-                    <input type="number" id="whr" oninput="calculateWeek()">
-                    <h5>Tax Percentage</h5>
+                    <input type="number" id="whr" oninput="calculateWeek()"><br>
+                    <label id="beforetax">Before Or After Tax?</label>
+                    <input id="myCheck" type="checkbox" onclick="tick()">
+                    <h5 id="taxx">Tax Percentage</h5>
                     <input type="number" id="tax" oninput="calculateWeek()">
+                    <h5>Other Deductions etc. KiwiSaver</h5>
+                    <input type="number" id="deductions" oninput="calculateWeek()">
                     </div>
                     
                 </div>
@@ -143,12 +178,16 @@
                 <h7>EARNINGS PER WEEK: $<span id="earned"></span></h7><br>
                 <h7>SPENDING PER WEEK: $<span id="spent"></span></h7><br>
                 <h7>WEEKLY AMOUNT OF MONEY LEFT: $<span id="sum"></span></h7>
-                <div id="piechart">
-                    
+                <div class="piechart" id="pie">
+                    <ul>
+                        <li><div id="block" style="background: orange"></div><h7>Saving<span id="saveper"></span></h7></li>
+                        <li><div id="block" style="background: red"></div><h7>Spending<span id="spendper"></span></h7></li>
+                        <li><div id="block" style="background: yellow"></div><h7>Essentials<span id="esseper"></span></h7></li>
+                    </ul>
                 </div>
                 <h4>3. How much do you want to save?</h4>
                 <h5>Percentage you want to save?</h5>
-                <input type="number" id="save" oninput="calculateWeek()"><br>
+                <input type="number" id="save" oninput="calculateWeek(), changeBGColor()"><br>
                 <h7>AMOUNT SAVING: $<span id="amountsave"></span></h7><br>
                 <h7>AMOUNT LEFT TO SPEND: $<span id="leftover"></span></h7><br>
 
@@ -165,20 +204,24 @@
             const bills = document.getElementById("bills")
             const food = document.getElementById("food")
             const save = document.getElementById("save")
+            const dede = document.getElementById("deductions")
 
             function calculateWeek() {
                 let hr = hour.value;
                 let wk = work.value;
-                let tx = tax.value;
+                let dd = Number(dede.value);
                 let rt = Number(rent.value)
                 let bl = Number(bills.value)
                 let fd = Number(food.value)
-                let en = ((hr*wk)-((hr*wk*tx)/100));
+                let tx = Number(tax.value)
+                let en = ((hr*wk)-((hr*wk*(tx+dd))/100));
                 let sp = rt + bl+ fd;
                 let sv = save.value;
                 let sum = (en-sp);
                 let svs = ((sum*sv)/100).toFixed(2);
                 let svm = (sum-svs).toFixed(2);
+                let svsper = Math.round((svs/en)*360);
+                let svmper = Math.round((svm/en)*360);
                 document.getElementById("earned").innerHTML = (en);
                 document.getElementById("spent").innerHTML = (sp);
                 document.getElementById("sum").innerHTML = (sum);
@@ -186,12 +229,47 @@
                 document.getElementById("leftover").innerHTML = (svm);
                 window.localStorage.setItem("savings",svs);
                 window.localStorage.setItem("spending",svm);
+                window.localStorage.setItem("savingsper",svsper);
+                window.localStorage.setItem("spendingper",svmper);
             }
 
             function saving() {
+                let svmper = window.localStorage.getItem("spendingper");
+                let svsper = window.localStorage.getItem("savingsper");
                 let svm = window.localStorage.getItem("spending");
                 let svs = window.localStorage.getItem("savings");
-                alert(svm + svs);
+                alert(svmper + svsper) ;
+
+            }
+
+            const bg = document.getElementById("pie");
+
+            function changeBGColor() {
+                let svmper = Number(window.localStorage.getItem("spendingper"));
+                let svsper = Number(window.localStorage.getItem("savingsper"));
+                let sumper = (svmper+svsper)
+                let test = "conic-gradient(red "+svmper+"deg, orange "+svmper+"deg "+sumper+"deg, yellow "+sumper+"deg)"
+                let strtest = String(test)
+                document.getElementById("pie").style.background = strtest;
+                //conic-gradient(red 320deg, orange 320deg 340deg, yellow 340deg);
+                //conic-gradient(red 351deg, orange 351deg 358deg, yellow 358deg)
+                //" conic-gradient(red "+svmper+"deg, orange "+svmper+"deg "+sumper+"deg, yellow "+sumper+"deg);"
+                
+            }
+
+            function tick() {
+            // Get the checkbox
+            var checkBox = document.getElementById("myCheck")
+            if (checkBox.checked == true){
+                document.getElementById("tax").value = 17.5;
+                document.getElementById("tax").style.display = "block";
+                document.getElementById("taxx").style.display = "block";
+            }
+            else {
+                document.getElementById("tax").value = 0;
+                document.getElementById("tax").style.display = "none";
+                document.getElementById("taxx").style.display = "none";
+            }
             }
 
         </script>
