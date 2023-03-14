@@ -4,5 +4,35 @@
         <link rel="stylesheet" href="stylesheet.css">
         <script src="scripts\dropdownmenu.js"></script>
     </head>
-    <body> Item Calculator</body>
+    <body>
+        <nav>
+            <div id="login">
+                <a href="#"><h2>LOGIN</h2></a>
+                <button><a href="signup.html">SIGN UP</a></button>
+            </div>
+            <div id="logo"><img src="logo 2.png" width="100px"> 
+            </div>
+            <h1 class="navtext">  YOUR FINANCIAL BUDDY </h1>
+            <ul>
+                <a href="index.html"><li>HOME</li></a>
+                <a href="#"><li>
+                    <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">CALCULATORS ▽</button>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a href="saveCalc.html">Savings Calculator</a>
+                      <a href="financeCalc.html">Finance Calculator</a>
+                      <a href="mortCalc.html">Mortgage Calculator</a>
+                      <a href="itemCalc.html">Items Calculator</a>
+                    </div>
+                  </div>
+                </li></a>
+                <a href="#"><li>MY ACCOUNT</li></a>
+                <a href="#"><li>ABOUT US</li></a>
+          
+            </ul>
+        </nav>
+        Item Calculator
+        <script src="scripts\dropdownmenu.js">
+        </script>
+    </body>
 </html>

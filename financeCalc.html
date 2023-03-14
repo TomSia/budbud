@@ -2,6 +2,225 @@
 <html>
     <head>
         <link rel="stylesheet" href="stylesheet.css">
+        <style>
+            #finance {
+                padding-top: 130px;
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            #financeCalcu {
+                margin-top: 30px;
+                width: 100%;
+                height: 15vh;
+            }
+
+            h4 {
+                font-size: 20px;
+            }
+
+            h7 {
+                font-size: 15px;
+                line-height: 30px;
+            }
+
+            #query {
+                width: 40%;
+                height: 50%;
+                float: left;
+
+            }
+
+            input {
+                font-size: 15px;
+                border: none;
+                border-bottom: 2px black solid;
+                font-family: Bahnschrift SemiBold;
+            }
+
+            input:focus {
+                outline: none
+            }
+
+            select {
+                font-size: 15px;
+                font-family: Bahnschrift SemiBold;
+                border: none;
+            }
+
+            #borrow {
+                font-size: 20px;
+            }
+
+            #repaying {
+                display: none;
+            }
+
+            #result {
+                width: 50%;
+                float: right;
+                height: 50vh;
+                text-align: center;
+                margin-top: 60px;
+                display: none;
+            }
+
+            #nname {
+                font-size: 30px;
+                margin-top: 20px;
+            }
+
+            button {
+                font-family: Bahnschrift SemiBold;
+                background-color: white;
+                margin-top: 30px;
+            }
+
+        </style>
     </head>
-    <body> Finance Calculator</body>
+    <body onload="saving()">
+        <nav>
+            <div id="login">
+                <a href="#"><h2>LOGIN</h2></a>
+                <button><a href="signup.html">SIGN UP</a></button>
+            </div>
+            <div id="logo"><img src="logo 2.png" width="100px"> 
+            </div>
+            <h1 class="navtext">  YOUR FINANCIAL BUDDY </h1>
+            <ul>
+                <a href="index.html"><li>HOME</li></a>
+                <a href="#"><li>
+                    <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">CALCULATORS ▽</button>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a href="saveCalc.html">Savings Calculator</a>
+                      <a href="financeCalc.html">Finance Calculator</a>
+                      <a href="mortCalc.html">Mortgage Calculator</a>
+                      <a href="itemCalc.html">Items Calculator</a>
+                    </div>
+                  </div>
+                </li></a>
+                <a href="#"><li>MY ACCOUNT</li></a>
+                <a href="#"><li>ABOUT US</li></a>
+          
+            </ul>
+        </nav>
+        <div id="finance">
+            <h3>Finance Calculator</h3>
+            <div id="financeCalcu">
+                <h7>We recommend that you use the <a href="saveCalc.html"><span id="red" class="em">Savings Calculator</span></a> before using any other calculator to make your experience easier.</h7><br>
+                <h7>Your Spending money available: $<span id="spending"></span> per week</h7><br>
+                <h7>Your Saving money available: $<span id="saving"></span> per week</h7><br>
+                <span id="test"></span>
+            </div>
+            <div id="query">
+                <select id="borrow" onchange="borrow()">
+                    <option value ="1">Looking to borrow</option>
+                    <option value ="2">I can afford to repay</option>
+                </select>
+                <div id="borrowing">
+                    <h5>Give the finance a name etc. Car, Iphone.</h5>
+                    <input type="text" id="finame" oninput="update()">
+                    <h5>How much are you looking at borrowing?</h5>
+                    <input type="text" id="fiamount" oninput="update()" placeholder="$">
+                    <h5>Repaying for how long?</h5>
+                    <input list="repays" name="repay" oninput="update()" id="repay">
+                    <select id="repays" onchange="update()">
+                        <option value ="1">Weeks</option>
+                        <option value ="2">Months</option>
+                    </select>
+                    <h5>Interest Rate?</h5>
+                    <input type="number" id="interest" oninput="update()"> <br>
+                    <button onclick = "show()">CALCULATE</button>
+                </div>
+
+                <div id="repaying">
+                    <h5>Give the finance a name</h5>
+                    <input type="text" id="finame">
+                    <h5>How much were you looking at spending?</h5>
+                    <input type="text" id="fiamount" placeholder="$">
+                    <select id="repays">
+                        <option value ="w">Weekly</option>
+                        <option value ="f">Fortnightly</option>
+                        <option value ="m">Monthly</option>
+                    </select>
+                    <h5>Repaying for how long?</h5>
+                    <input list="repays" name="repay" id="repay">
+                    <select id="repays">
+                        <option value ="Days">Weeks</option>
+                        <option value ="Months">Months</option>
+                    </select>
+                    <h5>Interest Rate?</h5>
+                    <input type="number" id="interest">
+                </div>
+
+            </div>
+            <div id="result">
+                <span id="nname"></span>
+                <h4>Deposit:<input type="number" id="depo" oninput="update()"></h4>
+                <h4>Establishment Fee:<input type="number" id="esta" oninput="update()"></h4>
+                <h4>Total amount of repayments:<br>$<span id="totalrepay"></span></h4>
+                <h4>This will cost about:<br> $<span id=sum></span> a week</h4>
+
+            </div>
+            
+        </div>
+         <script>
+            function saving() {
+                let svm = window.localStorage.getItem("spending");
+                let svs = window.localStorage.getItem("savings");
+                document.getElementById("spending").innerHTML = svm;
+                document.getElementById("saving").innerHTML = svs;
+
+            }
+
+
+            function borrow() {
+                let yes = document.getElementById("borrow").value;
+                if (yes == 2){
+                    document.getElementById("borrowing").style.display = "none";
+                    document.getElementById("repaying").style.display = "block";
+                }   else{
+                    document.getElementById("borrowing").style.display = "block";
+                    document.getElementById("repaying").style.display = "none";
+                }
+            }
+
+            function update() {
+                let re = document.getElementById("repays").value;
+                let name = document.getElementById("finame").value;
+                let amount = Number(document.getElementById("fiamount").value);
+                let mrepaylen = Number(document.getElementById("repay").value);
+                let interest = Number(document.getElementById("interest").value);
+                let deposit = Number(document.getElementById("depo").value);
+                let boamount = (amount-deposit)
+                let time4 = 4;
+                let sum = ((boamount+(boamount*((interest)/100)))/mrepaylen);
+
+                let total = (boamount+(boamount*((interest)/100)));
+                if (re == 2) {
+                    let ahh = (mrepaylen*4);
+                    sum = ((boamount+(boamount*((interest)/100)))/ahh);
+                }   else {
+                    mrepaylen = mrepaylen;
+                    sum = ((boamount+(boamount*((interest)/100)))/mrepaylen);
+                }
+
+
+                
+                
+
+                document.getElementById("totalrepay").innerHTML = total;
+                document.getElementById("nname").innerHTML = name;
+                document.getElementById("sum").innerHTML = sum;
+                
+            }
+
+            function show() {
+                document.getElementById("result").style.display = "block";
+            }
+         </script>
+         <script src="scripts\dropdownmenu.js">
+        </script>
+        </body>
 </html>

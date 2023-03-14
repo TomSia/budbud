@@ -53,8 +53,8 @@ h2 {
 
 
 #section1 {
-    width: 100%;
-    height: 180vh;
+    width: 90%;
+    height: 30vh;
     padding-top: 150px;
     padding-left: 5%;
     padding-right: 5%;
@@ -80,34 +80,34 @@ h3 {
 }
 
 #savingsBox {
-    width: 44%;
+    width: 40%;
     height: 40%;
-    border: black solid 1px;
-    margin: 30px;
+    border: red solid 1px;
+    margin: 2% 4%;
     float: left;
 }
 
 #financeBox {
-    width: 44%;
+    width: 40%;
     height: 40%;
-    border: black solid 1px;
-    margin: 30px;
+    border: rgb(0, 148, 255) solid 1px;
+    margin: 2% 4%;
     float: right;
 }
 
 #mortgageBox {
-    width: 44%;
+    width: 40%;
     height: 40%;
-    border: black solid 1px;
-    margin: 30px;
+    border: rgb(0, 148, 255) solid 1px;
+    margin: 2% 4%;
     float: left;
 }
 
 #itemsBox {
-    width: 44%;
+    width: 40%;
     height: 40%;
-    border: black solid 1px;
-    margin: 30px;
+    border: red solid 1px;
+    margin: 2% 4%;
     float: right;
 }
 
@@ -188,4 +188,52 @@ display: block;
     margin-top: 5px;
     background-color: white;
     
+}
+
+#banner1 {
+    width: 100%;
+    height: 500px;
+    background-image: url("buildings.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#calculating {
+    width: 50%;
+    height: 800px;
+    background-color: white;
+    border:4px solid; 
+    border-top-color:red;
+    border-left-color: red;
+    border-right-color:rgb(0, 148, 255);
+    border-bottom-color:rgb(0, 148, 255);
+    position: relative;
+    top: -200px;
+    margin: auto;
+    text-align: center;
+    font-family: Bahnschrift SemiBold;
+}
+
+#calculating h3 {
+    margin-bottom: 20px;
+}
+
+#calculators {
+    width: 100%;
+    height: 70%;
+}
+
+h5 {
+    font-size: 16px;
+}
+
+#footer {
+    width: 100%;
+    height: 300px;
+    border-top: black 3px solid;
+    text-align: center;
+}
+
+.em {
+    text-decoration: underline dotted;
 }
