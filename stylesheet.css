@@ -237,3 +237,7 @@ h5 {
 .em {
     text-decoration: underline dotted;
 }
+
+#calculating h4 {
+    font-size: 15px;
+}
