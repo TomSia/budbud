@@ -65,7 +65,21 @@
                 display: none;
             }
 
+            #resultspend{
+                width: 50%;
+                float: right;
+                height: 50vh;
+                text-align: center;
+                margin-top: 60px;
+                display: none;
+            }
+
             #nname {
+                font-size: 30px;
+                margin-top: 20px;
+            }
+
+            #rname {
                 font-size: 30px;
                 margin-top: 20px;
             }
@@ -114,7 +128,7 @@
                 <span id="test"></span>
             </div>
             <div id="query">
-                <select id="borrow" onchange="borrow()">
+                <select id="borrow" onchange="borrow(), show()">
                     <option value ="1">Looking to borrow</option>
                     <option value ="2">I can afford to repay</option>
                 </select>
@@ -136,22 +150,23 @@
 
                 <div id="repaying">
                     <h5>Give the finance a name</h5>
-                    <input type="text" id="finame">
+                    <input type="text" id="rename" oninput="spending()">
                     <h5>How much were you looking at spending?</h5>
-                    <input type="text" id="fiamount" placeholder="$">
-                    <select id="repays">
-                        <option value ="w">Weekly</option>
-                        <option value ="f">Fortnightly</option>
-                        <option value ="m">Monthly</option>
+                    <input type="text" id="reamount" placeholder="$" oninput="spending()">
+                    <select id="amo" onchange = "spending()">
+                        <option value ="1">Weekly</option>
+                        <option value ="2">Fortnightly</option>
+                        <option value ="3">Monthly</option>
                     </select>
-                    <h5>Repaying for how long?</h5>
-                    <input list="repays" name="repay" id="repay">
-                    <select id="repays">
-                        <option value ="Days">Weeks</option>
-                        <option value ="Months">Months</option>
+                    <h5>I can repay over</h5>
+                    <input list="repays" name="repay" id="timeam" oninput="spending()">
+                    <select id="timer" onchange = "spending()">
+                        <option value ="1">Weeks</option>
+                        <option value ="2">Months</option>
                     </select>
                     <h5>Interest Rate?</h5>
-                    <input type="number" id="interest">
+                    <input type="number" id="inte" oninput="spending()"> <br>
+                    <button onclick = "show()">CALCULATE</button>
                 </div>
 
             </div>
@@ -163,9 +178,18 @@
                 <h4>This will cost about:<br> $<span id=sum></span> a week</h4>
 
             </div>
+
+            <div id="resultspend">
+                <span id="rname"></span>
+                <h4>Total amount you could get:<br>$<span id="totalget"></span></h4>
+                <h4>Total amount to repay:<br> $<span id=totalsad></span></h4>
+
+            </div>
             
         </div>
          <script>
+
+            x = 1;
             function saving() {
                 let svm = window.localStorage.getItem("spending");
                 let svs = window.localStorage.getItem("savings");
@@ -184,6 +208,53 @@
                     document.getElementById("borrowing").style.display = "block";
                     document.getElementById("repaying").style.display = "none";
                 }
+            }
+
+            function spending() {
+                let rname = document.getElementById("rename").value;
+                let amount = Number(document.getElementById("reamount").value);
+                let time = Number(document.getElementById("timeam").value);
+                let inter = Number(document.getElementById("inte").value);
+                let amo = document.getElementById("amo").value;
+                let timer = document.getElementById("timer").value;
+                let total = (amount*time)
+                let sad = (total - (total*(inter/100)));
+                let mont = (time*4)
+
+
+                if (amo == 1) {
+                    if (timer == 1) {
+                        total = (amount*time);
+                        sad = (total - (total*(inter/100)));
+                    }   else {
+                        total = (amount*mont);
+                        sad = (total - (total*(inter/100)));
+                    }
+                } if (amo == 2) {
+                    let fort = (amount/2);
+                    total = (fort*time);
+                    if (timer == 1) {
+                        total = (fort*time);
+                        sad = (total - (total*(inter/100)));
+                    }   else {
+                        total = (fort*mont);
+                        sad = (total - (total*(inter/100)));
+                    }
+                } if (amo == 3) {
+                    let mon = (amount/4);
+                    total = (mon*time);
+                    if (timer == 1) {
+                        total = (mon*time);
+                        sad = (total - (total*(inter/100)));
+                    }   else {
+                        total = (mon*mont);
+                        sad = (total - (total*(inter/100)));
+                    }
+                }
+
+                document.getElementById("totalget").innerHTML = sad;
+                document.getElementById("totalsad").innerHTML = total;
+                document.getElementById("rname").innerHTML = rname;
             }
 
             function update() {
@@ -217,7 +288,14 @@
             }
 
             function show() {
-                document.getElementById("result").style.display = "block";
+                let yes = document.getElementById("borrow").value;
+                if (yes == 2){
+                    document.getElementById("resultspend").style.display = "block";
+                    document.getElementById("result").style.display = "none";
+                }   else{
+                    document.getElementById("resultspend").style.display = "none";
+                    document.getElementById("result").style.display = "block";
+                }
             }
          </script>
          <script src="scripts\dropdownmenu.js">
